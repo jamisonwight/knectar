@@ -1,0 +1,391 @@
+@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,300,200,100,500,600,700,800,900);
+@import url(https://fonts.googleapis.com/css?family=Muli:400,300,300italic,400italic);
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+.container {
+    background: #eeeeee;
+}
+.page-heading h1 {
+    text-align: left;
+    padding-bottom: 10px;
+    font-weight: 200 !important;
+    color: #00BCD4 !important;
+}
+::-webkit-scrollbar              { background: #474747; border-radius: 35px;}
+::-webkit-scrollbar-button       { display: none}
+::-webkit-scrollbar-track        { display: none}
+::-webkit-scrollbar-track-piece  { display: none}
+::-webkit-scrollbar-thumb        {background: #727272; border-radius: 25px; width: 5px;}
+::-webkit-scrollbar-corner       { display: none }
+::-webkit-resizer                { display: none}
+header p {
+    float: right;
+}
+body {
+    padding: 30px 0 0 0 !important;
+    background: #3a3a3a !important;
+    border-radius: 10px;
+    font-size: 14px !important;
+    font-family: "Work Sans", sans-serif !important;
+}
+.msg {
+    display: inline-block;
+    padding: 10px 0 20px 0;
+    margin: auto;
+    width: 100%;
+    height: 400px;
+    max-height: 400px;
+    overflow: auto;
+    border:2px solid #474747 !important;
+    background: transparent;
+    border-radius: 10px;
+}
+.msg h3 {
+    font-size: 1.8rem;
+}
+.message {
+    width: 93%;
+    margin: auto;
+    border-radius: 5px !important;
+}
+.message h3 {
+    font-size: 2rem;
+}
+button {
+    width: 40%;
+    background: #00BCD4 !important;
+    border: none !important;
+}
+
+button span {
+    font-family: "Work Sans", sans-serif !important;
+    font-weight: 500 !important;
+    color: white !important;
+}
+.msg-container {
+    position: absolute;
+    bottom: 0; left: 0;right: 0;
+    width: 97%;
+    margin: auto;
+    background: #474747;
+    background: -moz-linear-gradient(top, #474747 0%, #3a3a3a 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #474747 0%,#3a3a3a 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #474747 0%,#3a3a3a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#474747', endColorstr='#3a3a3a',GradientType=0 ); /* IE6-9 */
+    padding: 10px 50px 60px 50px;
+    border-radius: 10px;
+}
+.msg-container label {
+    color:  #00BCD4 !important;
+    font-weight: 200;
+}
+.msg-container form {
+    position: relative;
+    margin: auto;
+}
+#react-container {
+    position: relative;
+    height: 900px !important;
+    background: #3a3a3a;
+    border-radius: 10px;
+}
+.container h2, {
+    font-family: "Work Sans", sans-serif !important;
+    color: #666666;
+}
+.container p {
+    font-size: 1.7rem;
+    font-weight: 400;
+    font-family: "Muli", sans-serif;
+    color: #666666;
+}
+.msg-board div {
+    padding: 5px 10px 0 10px;
+    margin-top: 10px;
+}
+.msg-board div:nth-child(even) {
+    border-left: 10px solid #FFC107;
+    color: #FFC107;
+    background: white;
+    box-shadow: 3px 3px 15px #B6B6B6;
+}
+.msg-board h3:nth-child(even){
+    color: #FFC107 !important ;
+}
+.msg-board div:nth-child(odd) {
+    border-left: 10px solid #0097A7;
+    color: #0097A7 !important;
+    background: #eeeeee;
+    box-shadow: 3px 3px 15px #B6B6B6;
+}
+.msg-board div span {
+    color: #999999 !important;
+    font-size: 1.1rem;
+}
+#emoji-container {
+    display: none;
+    background: #0097A7;
+    width: 300px;
+    max-width: 100%;
+    height: 205px;
+    max-height: 100%;
+    position: absolute;;
+    right: 0; bottom: 0;
+    margin: auto;
+    border-radius: 5px;
+    padding: 40px !important;
+    z-index: 5;
+    opacity: 0.9;
+}
+#connection-status {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    padding: 0 !important;
+    margin: 20px;
+    display: block;
+}
+.emojis {
+    position: relative;
+    width: 200px;
+}
+.emo-icon {
+    position: relative;
+    left: 20px; top: 10px;
+    padding: 1px !important;
+    display: inline-block;
+    width: 28px !important;
+    height: 28px;
+    opacity: 0.8;
+}
+.emo-icon img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.emo-icon:hover {
+    opacity: 1;
+}
+#connection-status.connected {
+    display: inline-block;
+    background-color: #8BC34A;
+    float: right;
+}
+#connection-status.disconnected {
+    display: inline-block;
+    background-color: #F44336;
+    float: right;
+}
+.status-text {
+    color: #eeeeee;
+    display: inline-block;
+    float: right;
+    margin-top: 30px;
+}
+form img {
+    position: absolute;
+    right: 15px; bottom: 7px;
+    display: inline-block;
+    float: right;
+    cursor: pointer !important;
+    z-index: 7;
+}
+form div {
+    padding: 0 !important
+}
+form button {
+    margin: 1em 0;
+    float: right !important;
+    font-family: "Work Sans", sans-serif;
+}
+form span {
+    color: #FFC107;
+    font-weight: bold;
+}
+form label {
+    font-size: 1.5em;
+    margin: 1em 0 0;
+}
+.textarea {
+    position: relative
+    overflow: auto;
+    padding: 20px !important;
+    height: 150px !important;
+}
+textarea,
+input {
+    border: none !important;
+    outline: none !important;
+    background: #00BCD4!important;
+}
+.textarea,
+input:focus {
+    outline: none !important;
+    border: none !important;
+}
+textarea::-webkit-input-placeholder {
+   color: white !important;
+ }
+textarea:-moz-placeholder {
+   color: white !important;
+}
+textarea::-moz-placeholder {
+   color: white !important;
+}
+textarea:-ms-input-placeholder {
+   color: white !important;
+}
+.textarea img {
+    width: 20px !important;
+    position: relative !important;
+    float: none !important;
+}
+div#not-found a {
+    display: block;
+    clear: both;
+}
+div#not-found a,
+form a {
+    position: relative;
+    left: 15px;
+    top: 10px;
+    padding-left: 20px;
+}
+#questions>div>span {
+    padding: .5em;
+    margin: .5em;
+    display: block;
+    cursor: pointer;
+    border: 2px solid green;
+}
+#questions>div>span:hover {
+    background-color: yellow;
+}
+#currentQuestion button {
+    margin: 2px 0;
+    cursor: pointer;
+}
+#currentQuestion button:hover {
+    opacity: 0.9;
+}
+#register {
+    display: block;
+    position: absolute;
+    top: 0: right: 0; bottom: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: #474747;
+    opacity: 0.97;
+    z-index: 15;
+}
+#register form {
+    position: absolute;
+    top: 50%; left: 0; right:0;bottom: 0;
+    transform: translateY(-50%);
+    margin: auto;
+}
+#register label {
+    color: white;
+}
+#register button{
+    position: absolute;
+    bottom: 100px;left: 0; right:0;
+    width: 60%;
+    margin: auto;
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: #474747;
+    background: #FFC107 !important;
+    float: none !important;
+}
+.userIcon {
+    cursor: pointer;
+    color: #00BCD4 ;
+}
+.userIcon:hover {
+    opacity: 0.7;
+}
+.userList {
+    position: absolute;
+    left: 16px;
+    width: 220px;
+    height: 400px;
+    padding: 20px 20px 20px 30px;
+    background: #474747;
+    opacity: 0.98;
+    border-radius: 10px;
+    display: inline-block !important;
+    z-index: 14;
+    color: #00BCD4 ;
+    overflow: auto;
+}
+.userList p {
+    color: #8BC34A;
+    text-align: left;
+}
+.icons {
+    display: inline-block !important;
+    padding: 0 15px 0 0;
+}
+
+.voice {
+    position: absolute;
+    left: 15px;
+    background: #474747;
+    color: #00BCD4;
+    border-radius: 10px;
+    opacity: 0.97;
+    z-index: 15;
+    padding: 40px;
+    width: 45%;
+    text-align: center
+}
+.voice h3 {
+    color: #8BC34A;
+    font-size: 1.3rem;
+}
+.voiceId {
+    position: relative;
+    display: inline-block;
+    width: 30%;
+}
+.voice img {
+    max-width: 100%;
+}
+.voice button {
+    border-radius: 10px;
+    width: 100%;
+    color: white;
+}
+#endRoom button {
+    background: #F44336 !important;
+}
+.volume {
+    position: absolute;
+    left: 15%;
+    width: 70%;
+    bottom: 2px;
+    height: 10px;
+}
+.connectionstate {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    text-align: center;
+    color: #fff
+}
+.audioContainer {
+    position: relative;
+    width: 200px;
+    height: 150px;
+}
+.audioContainer audio {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
