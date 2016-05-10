@@ -1,10 +1,7 @@
-var React = require('react');
-var Display = require('./Display');
-var Sounds = require('./shortcodes/Sounds');
-var alert = require('alert');
+import React, { Component } from 'react'
+import { Sounds } from './shortcodes/Sounds'
 
 var Message = React.createClass({
-
 	addMemberRow(member, i) {
 		return (
 			<div className="message" key={i}>
@@ -13,10 +10,9 @@ var Message = React.createClass({
 			  <Sounds msg={member.message} />
 				<span>Posted on {member.date}</span>
 			</div>
-		);
+		)
 
-	},
-
+	}
 	render() {
 		return (
 			<div className="msg" id="msg">
@@ -24,8 +20,6 @@ var Message = React.createClass({
 					{this.props.audience.map(this.addMemberRow)}
 				</div>
 			</div>
-		);
+		)
 	}
-});
-
-module.exports = Message;
+};

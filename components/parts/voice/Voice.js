@@ -1,19 +1,16 @@
- var React = require('react');
- var Display = require('../Display');
- var VoiceOpen = require('./VoiceOpen');
+import React, { Component } from 'react'
+import { Display } from './Display'
+import { VoiceOpen } from './VoiceOpen'
 
- var Voice = React.createClass({
-
+export default class Voice extends Component {
      getInitialState() {
          return {
              clicked: false
          }
-     },
-
+     }
      clickHandler() {
-        this.setState({ clicked: !this.state.clicked });
-     },
-
+        this.setState({ clicked: !this.state.clicked })
+     }
      render() {
          return (
              <div className="icons">
@@ -32,8 +29,6 @@
                 </Display>
 
              </div>
-         );
+         )
      }
- });
-
- module.exports = Voice;
+ };

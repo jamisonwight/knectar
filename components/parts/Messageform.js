@@ -1,15 +1,13 @@
-var React = require('react');
-var Emoji = require('./Emoji');
-var emojiContainer = document.getElementById("emoji-container");
+import React, { Component } from 'react'
+import { Emoji } from './Emoji'
 
 
-var Messageform = React.createClass({
-
+export default class Messageform extends Component {
 	addMessage() {
-		var userName = document.getElementById('username').value;
-		var memberMessage = React.findDOMNode(this.refs.message).value;
-		var messageVal = '';
-		var newDate = new Date();
+		let userName = document.getElementById('username').value;
+		let memberMessage = React.findDOMNode(this.refs.message).value;
+		let messageVal = '';
+		let newDate = new Date();
 		newDate = newDate.toUTCString();
 
 		{(() => {
@@ -40,24 +38,21 @@ var Messageform = React.createClass({
 		);
 		document.getElementById("comment").value = "";
 		document.getElementById("comment").focus();
-	},
-
+	}
 	keyHandler(event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
-			this.addMessage();
+			addMessage();
 		}
-	},
-
+	}
 	emojiBox() {
 		document.getElementById("emoji-container").setAttribute('style', 'display:block !important');
-	},
-
+	}
 	clickOutside() {
-        if(event.target.id!="emoji-container") {
+        if (event.target.id!="emoji-container") {
             document.getElementById("emoji-container").setAttribute('style', 'display:none');
         }
-    },
+    }
 	render() {
 		return (
 			<div className="msg-container">
@@ -83,6 +78,4 @@ var Messageform = React.createClass({
 			</div>
 		);
 	}
-});
-
-module.exports = Messageform;
+};

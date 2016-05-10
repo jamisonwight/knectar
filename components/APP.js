@@ -1,10 +1,10 @@
-import React, { component } from 'react'
+import React, { Component } from 'react'
 import { Router } from 'react-router'
-import RouteHandler from Router.RouteHandler
 import alert from 'alert'
 import io from 'socket.io-client'
 import { Header } from './parts/Header'
 import { Register } from './parts/Register'
+const RouteHandler =  Router.RouteHandler
 
 export default class APP extends Component {
     getInitialState() {
@@ -17,7 +17,6 @@ export default class APP extends Component {
             sound: ''
         }
     }
-
     componentWillMount() {
         this.socket = io('http://localhost:5000');
         this.socket.on('connect', this.connect);
@@ -28,11 +27,9 @@ export default class APP extends Component {
         this.socket.on('userAdded', this.updateUsers);
         this.socket.on('newSound', this.updateSound);
     }
-
     emit(eventName, payload) {
         this.socket.emit(eventName, payload);
     }
-
     connect() {
         let member = (sessionStorage.member) ? JSON.parse(sessionStorage.member) : null;
         if (member && member.type === 'audience') {
@@ -43,7 +40,6 @@ export default class APP extends Component {
             title: 'CONNECT ME'
         });
     }
-
     disconnect() {
         this.setState({
             status: 'disconnected',
@@ -51,28 +47,22 @@ export default class APP extends Component {
         });
         this.state.status === 'disconnected' ? alert('glass') : null;
     }
-
     joined(member) {
         sessionStorage.member = JSON.stringify(member);
         this.setState({ audience: member });
     }
-
     updateState(serverState) {
         this.setState(serverState);
     }
-
     updateAudience(newAudience) {
         this.setState({ audience: newAudience });
     }
-
     updateUsers(newUser) {
         this.setState({ users: newUser});
     }
-
     updateSound(addSound) {
         this.setState({ sound: addSound });
     }
-
     render() {
         return (
             <div className="app-container">
@@ -82,4 +72,4 @@ export default class APP extends Component {
             </div>
         );
     }
-});
+};

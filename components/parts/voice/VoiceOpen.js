@@ -1,13 +1,12 @@
-var React = require('react');
-var Display = require('../Display');
+import React, { Component } from 'react'
+import { Display } from './Display'
 
-var VoiceOpen = React.createClass({
-
+export default class VoiceOpen extends Component {
         startCall() {
-            var port = process.env.PORT || 5000;
-            var portURL = 'https://localhost:5000/' + port;
+            let port = process.env.PORT || 5000
+            let portURL = 'https://localhost:5000/' + port
             // Create our WebRTC connection
-            var webrtc = new SimpleWebRTC({
+            let webrtc = new SimpleWebRTC({
                     // the element that will hold the local video
                     localVideoEl: '',
                     // Element that will hold remote videos
@@ -20,14 +19,13 @@ var VoiceOpen = React.createClass({
                     log: true,
                     url: portURL,
                 }
-            );
+            )
             // we have to wait until it's ready
             webrtc.on('readyToCall', function () {
               // you can name it anything
               webrtc.joinRoom('main');
-            });
-        },
-
+            })
+        }
         addUserVoice(member, i) {
             return (
                 <div className="voiceId" key={i}>
@@ -35,9 +33,7 @@ var VoiceOpen = React.createClass({
                     <h3>{member.name}</h3>
                 </div>
             );
-        },
-
-
+        }
         render() {
             return (
                 <div className="voice">
@@ -56,8 +52,6 @@ var VoiceOpen = React.createClass({
                     </form>
 
                 </div>
-            );
+            )
         }
-    });
-
-module.exports = VoiceOpen;
+    };

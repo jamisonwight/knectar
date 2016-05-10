@@ -1,6 +1,6 @@
-var React = require('react');
+import React, { Component } from 'react'
 /* alert JS library */
-var alert = require('alert');
+import alert from 'alert'
 
 /* Sound Files */
 alert.content['fart'] = ['https://cldup.com/qqxlL9I2NP.wav'];
@@ -12,8 +12,7 @@ alert.content['cartoon'] =  ['https://cldup.com/sri7o-uUHf.mp3'];
 alert.content['tada'] = ['https://cldup.com/hWRzJR2Szc.mp3'];
 
 
-var Sounds = React.createClass({
-
+export default class Sounds extends Component {
     soundHandler() {
          {(() => {
             switch (this.props.msg) {
@@ -27,16 +26,12 @@ var Sounds = React.createClass({
               default: return alert('pop');
             }
         })()}
-    },
-
-
+    }
     render() {
         return (
           this.soundHandler(),
           null
-        );
+        )
     }
 
-});
-
-module.exports = Sounds;
+};

@@ -1,16 +1,14 @@
-var React = require('react');
-var Display = require('./Display');
+import React, { Component } from 'react'
+import { Display } from './Display'
 
-var Register = React.createClass({
-
+export default class Register extends Component {
     getInitialState() {
         return {
             password: 'punksdead',
         }
-    },
-
+    }
     loginPass() {
-        var username = React.findDOMNode(this.refs.username).value;
+        const username = React.findDOMNode(this.refs.username).value;
         document.getElementById('register').setAttribute('style', 'display: none !important');
         $('#myForm label').append('<span>' + username + '</span>');
 
@@ -18,26 +16,22 @@ var Register = React.createClass({
             {
                 users: username
             }
-        );
-    },
-
+        )
+    }
     loginError() {
          $('#register form').append('<p className="error">Incorrect Password</p>');
           document.getElementById('password').value = '';
-    },
-
+    }
     loginUser() {
         //var password = React.findDOMNode(this.refs.userPassword).value;
 
         this.loginPass();
         // /*Check if password is correct or incorrect and pass a function */
         // password === this.state.password ? this.loginPass() : this.loginError();
-    },
-
+    }
     Changehandler(e) {
         this.setState({ users: e.target.value });
-    },
-
+    }
     render() {
         return(
             <div id="register">
@@ -57,14 +51,6 @@ var Register = React.createClass({
                     <button className="btn btn-lg">Join</button>
                 </form>
             </div>
-        );
+        )
     }
-});
-    // <label>Password</label>
-    // <input ref="userPassword"
-    //        type="password"
-    //        id="password"
-    //        className="input-lg form-control"
-    //        required />
-
-module.exports = Register;
+};

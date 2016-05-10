@@ -1,72 +1,70 @@
-var React = require('react');
+import React, { Component } from 'react'
 
-
-var Emoji = React.createClass({
-
+export default class Emoji extends Compnonent {
     addGrin() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F600}')
-    },
+    }
     addGrim() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F601}')
-    },
+    }
     addOpenSmile() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F603}')
-    },
+    }
     addWink() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F61C}')
-    },
+    }
     addSmile() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F642}')
-    },
+    }
     addFrown() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F641}')
-    },
+    }
     addCry() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F622}')
-    },
+    }
     addPonder() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F914}')
-    },
+    }
     addRosy() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F60A}')
-    },
+    }
     addHushed() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F62E}')
-    },
+    }
     addLike() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F44D}')
-    },
+    }
     addClap() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F44F}')
-    },
+    }
     addHandsRaised() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F64C}')
-    },
+    }
     addPray() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F64F}')
-    },
+    }
     addPoint() {
          var input = $("#comment");
          input.val( input.val() + '\u{1F446}')
-    },
+    }
     addHeart() {
         var input = $("#comment");
         input.val( input.val() + '\u{2665}')
-    },
+    }
 
 
     render() {
@@ -157,7 +155,4 @@ var Emoji = React.createClass({
             </div>
         );
     }
-
-});
-
-module.exports = Emoji;
+};

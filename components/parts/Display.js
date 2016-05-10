@@ -1,9 +1,7 @@
-var React = require('react');
+import React, { Component } from 'react'
 
-var Display = React.createClass({
+export default class Display extends Component {
 	render() {
-		return (this.props.if) ? <div>{this.props.children}</div> : null;
+		return (this.props.if) ? <div>{this.props.children}</div> : null
 	}
-});
-
-module.exports = Display;
+};

@@ -1,24 +1,20 @@
-var React = require('react');
-var Display = require('./Display');
+import React, { Component } from 'react'
+import { Display } from './Display'
 
-var Users = React.createClass({
-
+export default class User extends Component {
 	getInitialState() {
 		return { clicked: {false} }
-	},
-
+	}
     addUserRow(user, i) {
         return (
         	<div key={i}>
             	<p>{user.name}</p>
         	</div>
         );
-    },
-
+    }
     clickHandler() {
         this.setState({ clicked: !this.state.clicked });
-    },
-
+    }
     render() {
         return (
             <div className="icons">
@@ -34,8 +30,6 @@ var Users = React.createClass({
 					</Display>
                 </Display>
             </div>
-        );
+        )
     }
-});
-
-module.exports = Users;
+};

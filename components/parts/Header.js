@@ -1,13 +1,12 @@
-var React = require('react');
+import React, { Component } from 'react'
 
-var Header = React.createClass({
-
+export default class Header extends Component {
 	getDefaultProps() {
 		return {
 			status: 'disconnected',
 			title: 'CONNECT ME',
 		}
-	},
+	}
 
 	render() {
 		return (
@@ -23,6 +22,4 @@ var Header = React.createClass({
 		);
 	}
 
-});
-
-module.exports = Header;
+};
