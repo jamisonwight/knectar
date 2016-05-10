@@ -9,7 +9,8 @@ const routes = (
 	<Route history={browserHistory} handler={Login} path="/" />
 	<Route history={browserHistory} handler={APP} path="/home">
 		<Route handler={Audience} path="/audience"
-	<NotFoundRoute handler={Whoops404} />
+		<NotFoundRoute handler={Whoops404} />
+	</Route>
 )
 
 Router.run(routes, function(Handler) {

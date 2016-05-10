@@ -13,6 +13,9 @@ var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
 
+var users = require('./routes/user');
+var auth = require('./routes/auth');
+
 var connections = [];
 var title = 'CONNECT ME';
 var audience = [];
@@ -22,6 +25,7 @@ var users = [];
 //   key: fs.readFileSync('./keys/key.pem'),
 //   cert: fs.readFileSync('./keys/cert.pem')
 // };
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,6 +39,8 @@ app.use(session( {secret: 'anything',
 
 require('./config/passport')(app);
 
+app.use('/users', users);
+app.use('/auth', auth);
 
 var port = process.env.PORT || 5000;
 var server = http.createServer(app);
