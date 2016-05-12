@@ -1,9 +1,10 @@
-module.exports = function() {
+module.exports = function(socket) {
   // Socket function when a message is added
   	socket.on('addMessage', function(payload) {
   		var newMessage = {
   			id: this.id,
   			name: payload.name,
+            image: payload.image,
   			message: payload.message,
   			type: 'audience',
   			date: payload.date,

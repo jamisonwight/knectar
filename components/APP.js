@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Router } from 'react-router'
+import { Router, RouterContext } from 'react-router'
 import alert from 'alert'
 import io from 'socket.io-client'
 import { Header } from './parts/Header'
 import { Register } from './parts/Register'
-const RouteHandler =  Router.RouteHandler
+
 
 export default class APP extends Component {
     getInitialState() {
@@ -68,7 +68,7 @@ export default class APP extends Component {
             <div className="app-container">
                 <Register {...this.state} emit={this.emit} />
                 <Header {...this.state} onClick={this.clickOutside}/>
-                <RouteHandler emit={this.emit} {...this.state} />
+                <RouterContext emit={this.emit} {...this.state} />
             </div>
         );
     }

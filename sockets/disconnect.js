@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(socket) {
   //Socket function on user disconnect
   socket.once('disconnect', function() {
     var member = _.findWhere(users, { id: this.id });

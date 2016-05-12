@@ -4,9 +4,9 @@ var User = require('../../models/userModel');
 
 module.exports = function(){
     passport.use(new GoogleStrategy({
-      clientID: '823762135906-kpkrbf697234dd8bqchtbdvn21ab4qcq.apps.googleusercontent.com',
-      clientSecret: 'iZgpDI5IMUJfZJBwxHezUqQj',
-      callbackURL: 'http://localhost:3000/auth/google/callback'
+      clientID: '805856647399-8ie7d35jjh7iosfekbk7n7coqoa6tcks.apps.googleusercontent.com',
+      clientSecret: '3f4BjKfPYSFmrcsnzj90jbbq',
+      callbackURL: 'http://localhost:5000/auth/google/callback'
       },
       function(req, accessToken, refreshToken, profile, done) {
           var user= {};

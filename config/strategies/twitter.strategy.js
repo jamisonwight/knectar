@@ -4,9 +4,9 @@ var User = require('../../models/userModel');
 
 module.exports = function() {
     passport.use(new TwitterStrategy({
-        consumerKey: 'M4WOUbdYplztthj3oyBSkPmc6',
-        consumerSecret: 'bI88v5iGF30Psi7JSwtqCWVxPEiHdRoBZKpE42MaYxTUN6SDoG',
-        callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback',
+        consumerKey: 'NLooKrs6hecQNdyIAggpyP3A3',
+        consumerSecret: 'sg6rXkoEmAk5aI5KodHIoOxzz2Cc82wp4TP0ZG2bJuBXPnClGA',
+        callbackURL: 'http://127.0.0.1:5000/auth/twitter/callback',
         passReqToCallback: true
     },
     function(req, token, tokenSecret, profile, done){

@@ -1,18 +1,18 @@
-import React from 'react'
-import { Route, Router, browserHistory, render, DefaultRoute, NotFoundRoute } from 'react-router'
-import { Login } from './components/OAuth/Login'
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+import { Route, Router, hashHistory, IndexRoute } from 'react-router'
+import { Login } from './components/Login'
 import { APP } from './components/APP'
 import { Audience } from './components/Audience'
 import { Whoops404 } from './components/Whoops404'
 
-const routes = (
-	<Route history={browserHistory} handler={Login} path="/" />
-	<Route history={browserHistory} handler={APP} path="/home">
-		<Route handler={Audience} path="/audience"
-		<NotFoundRoute handler={Whoops404} />
-	</Route>
-)
+var routes = (
+	// <Route component={Login} path="/">
+		<Route component={APP} path="/">
+			<IndexRoute component={Audience} />
+			<Route component={Whoops404} />
+		</Route>
+	// </Route>
+);
 
-Router.run(routes, function(Handler) {
-	React.render(<Handler />, document.getElementById('react-container'))
-})
+render(<Router history={hashHistory}>{routes}</Router>, document.getElementById('react-container') )

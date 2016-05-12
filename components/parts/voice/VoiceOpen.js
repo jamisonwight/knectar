@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Display } from './Display'
+import { Display } from '../Display'
 
 export default class VoiceOpen extends Component {
         startCall() {
@@ -29,10 +29,15 @@ export default class VoiceOpen extends Component {
         addUserVoice(member, i) {
             return (
                 <div className="voiceId" key={i}>
-                    <img src="https://cldup.com/XTZ27pa9O1.png" />
-                    <h3>{member.name}</h3>
+                    <Display if={!member.user.image}>
+                        <img src="https://cldup.com/XTZ27pa9O1.png" />
+                    </Display>
+                    <Display if={member.user.image}>
+                        <img src={member.user.image} />
+                    </Display>
+                    <h3>{member.user.name}</h3>
                 </div>
-            );
+            )
         }
         render() {
             return (

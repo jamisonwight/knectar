@@ -4,7 +4,7 @@ import { Emoji } from './Emoji'
 
 export default class Messageform extends Component {
 	addMessage() {
-		let userName = document.getElementById('username').value;
+		// let userName = document.getElementById('username').value;
 		let memberMessage = React.findDOMNode(this.refs.message).value;
 		let messageVal = '';
 		let newDate = new Date();
@@ -31,7 +31,8 @@ export default class Messageform extends Component {
     })()};
 
 		this.props.emit('addMessage', {
-				name: userName,
+				name: this.props.user.name,
+				image: this.props.user.image,
 				message: messageVal,
 				date: newDate,
 			}
@@ -57,7 +58,7 @@ export default class Messageform extends Component {
 		return (
 			<div className="msg-container">
 				<form id ="myForm" name="MyForm" action="javascript:void(0)" onSubmit={this.addMessage}>
-					<label>Welcome </label>
+					<label>Welcome {this.props.user.name} </label>
 					<br/><br/>
 					<textarea className="input-lg form-control"
 							  rows="5"

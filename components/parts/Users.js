@@ -5,10 +5,11 @@ export default class User extends Component {
 	getInitialState() {
 		return { clicked: {false} }
 	}
-    addUserRow(user, i) {
+    addUserRow(users, i) {
         return (
         	<div key={i}>
-            	<p>{user.name}</p>
+				<img src={users.image} />
+            	<p>{users.name}</p>
         	</div>
         );
     }

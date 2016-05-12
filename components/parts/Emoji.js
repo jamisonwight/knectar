@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Emoji extends Compnonent {
+export default class Emoji extends Component {
     addGrin() {
         var input = $("#comment");
         input.val( input.val() + '\u{1F600}')

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Router } from 'react-router'
-const Link = Router.Link
+import { Router, Link } from 'react-router'
+
 
 export default class Whoops404 extends Component {
 	render() {

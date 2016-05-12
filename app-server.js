@@ -13,8 +13,7 @@ var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
 
-var users = require('./routes/user');
-var auth = require('./routes/auth');
+
 
 var connections = [];
 var title = 'CONNECT ME';
@@ -37,27 +36,29 @@ app.use(session( {secret: 'anything',
                   resave: true,
                   saveUninitialized: true}) );
 
-require('./config/passport')(app);
 
-app.use('/users', users);
-app.use('/auth', auth);
+// require('./config/passport')(app);
+// var db = mongoose.connect('mongodb://localhost/knectar');
 
-var port = process.env.PORT || 5000;
-var server = http.createServer(app);
+// var users = require('./routes/user');
+// var auth = require('./routes/auth');
+// app.use('/users', users);
+// app.use('/auth', auth);
+
+var server = app.listen(5000);
 var io = require('socket.io').listen(server);
-
-server.listen(port);
 
 // SOCKET IO
 io.sockets.on('connection', function (socket) {
+
   // On disconnect
-  require('./sockets/disconnect')();
+  require('./sockets/disconnect')(socket);
   // On new message
-  require('./sockets/addMessage')();
+  require('./sockets/addMessage')(socket);
   // On user login
-  require('./sockets/username')();
+  require('./sockets/username')(socket);
   // on notification
-  require('./sockets/newSound')();
+  require('./sockets/newSound')(socket);
 
 	connections.push(socket);
     console.log("Connected: %s sockets connected.", connections.length);
@@ -68,4 +69,4 @@ io.sockets.on('connection', function (socket) {
 	})
 });
 
-console.log("Polling server is running at http://localhost:" + port);
+console.log("Knectar server is running at http://localhost:5000");

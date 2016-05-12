@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Display } from './Display'
+import { Display } from '../Display'
 import { VoiceOpen } from './VoiceOpen'
 
 export default class Voice extends Component {
