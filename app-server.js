@@ -1,5 +1,4 @@
 var express = require('express');
-var app = express();
 var _ = require('underscore');
 var fs = require('fs');
 var http = require('http');
@@ -12,7 +11,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
-
+var app = express();
 
 
 var connections = [];
@@ -24,17 +23,18 @@ var users = [];
 //   key: fs.readFileSync('./keys/key.pem'),
 //   cert: fs.readFileSync('./keys/cert.pem')
 // };
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist'));
 
-app.use(session( {secret: 'anything',
-                  resave: true,
-                  saveUninitialized: true}) );
+// app.use(logger('dev'));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cookieParser());
+
+
+// app.use(session( {secret: 'anything',
+//                   resave: true,
+//                   saveUninitialized: true}) );
 
 
 // require('./config/passport')(app);
@@ -45,20 +45,64 @@ app.use(session( {secret: 'anything',
 // app.use('/users', users);
 // app.use('/auth', auth);
 
-var server = app.listen(5000);
-var io = require('socket.io').listen(server);
+var server = http.createServer(app);
+server.listen(3000);
 
 // SOCKET IO
+var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
+console.log('shit');
+  //Socket function on user disconnect
+  socket.once('disconnect', function() {
+    var member = _.findWhere(users, { id: this.id });
 
-  // On disconnect
-  require('./sockets/disconnect')(socket);
-  // On new message
-  require('./sockets/addMessage')(socket);
-  // On user login
-  require('./sockets/username')(socket);
-  // on notification
-  require('./sockets/newSound')(socket);
+    if (member) {
+      users.splice(users.indexOf(member), 1);
+      io.sockets.emit('userAdded', users);
+      console.log("Left: %s ");
+    }
+    // Delete user on disconnect
+    connections.splice(connections.indexOf(socket), 1);
+    socket.disconnect();
+    console.log("Disconnected: %s sockets remaining.", connections.length);
+  });
+
+  // Socket function when a message is added
+    socket.on('addMessage', function(payload) {
+      var newMessage = {
+        id: this.id,
+        name: payload.name,
+        image: payload.image,
+        message: payload.message,
+        type: 'audience',
+        date: payload.date,
+        alert: payload.alert
+      }
+      console.log("Audience Joined: %s ", payload.name + " message: ", payload.message);
+      this.emit('joined', newMessage);
+      audience.push(newMessage);
+      io.sockets.emit('audience', audience);
+    });
+
+    // Socket to Grab username
+    socket.on('username', function(payload){
+      var newUser = {
+        name: payload.name,
+        image: payload.image
+      };
+
+      users.push(newUser);
+
+      // Emit new user to client App
+      io.sockets.emit('userAdded', users);
+      console.log(newUser);
+    });
+
+    // socket for message alerts
+    socket.on('fart', function(payload){
+      var newSound = { sound: payload.sound };
+      io.sockets.emit('newSound', newSound);
+    });
 
 	connections.push(socket);
     console.log("Connected: %s sockets connected.", connections.length);
@@ -69,4 +113,4 @@ io.sockets.on('connection', function (socket) {
 	})
 });
 
-console.log("Knectar server is running at http://localhost:5000");
+console.log("Knectar server is running at http://localhost:3000");

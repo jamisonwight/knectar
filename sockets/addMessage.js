@@ -4,7 +4,7 @@ module.exports = function(socket) {
   		var newMessage = {
   			id: this.id,
   			name: payload.name,
-            image: payload.image,
+        image: payload.image,
   			message: payload.message,
   			type: 'audience',
   			date: payload.date,

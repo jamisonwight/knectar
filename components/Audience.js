@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Messageform } from './parts/Messageform'
-import { Message } from './parts/Message'
-import { Users } from './parts/Users'
-import { Voice } from './parts/voice/Voice'
+import Messageform from './parts/Messageform'
+import Message from './parts/Message'
+import Users from './parts/Users'
+import Voice from './parts/voice/Voice'
 
 export default class Audience extends Component {
 	componentDidUpdate() {

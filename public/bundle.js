@@ -54,32 +54,36 @@
 
 	var _reactDom = __webpack_require__(33);
 
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
 	var _reactRouter = __webpack_require__(168);
 
 	var _componentsLogin = __webpack_require__(229);
 
+	var _componentsLogin2 = _interopRequireDefault(_componentsLogin);
+
 	var _componentsAPP = __webpack_require__(230);
+
+	var _componentsAPP2 = _interopRequireDefault(_componentsAPP);
 
 	var _componentsAudience = __webpack_require__(297);
 
+	var _componentsAudience2 = _interopRequireDefault(_componentsAudience);
+
 	var _componentsWhoops404 = __webpack_require__(305);
 
-	var routes =
-	// <Route component={Login} path="/">
-	_react2['default'].createElement(
-		_reactRouter.Route,
-		{ component: _componentsAPP.APP, path: "/" },
-		_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsAudience.Audience }),
-		_react2['default'].createElement(_reactRouter.Route, { component: _componentsWhoops404.Whoops404 })
-	)
-	// </Route>
-	;
+	var _componentsWhoops4042 = _interopRequireDefault(_componentsWhoops404);
 
-	(0, _reactDom.render)(_react2['default'].createElement(
-		_reactRouter.Router,
-		{ history: _reactRouter.hashHistory },
-		routes
+	_reactDom2['default'].render(_react2['default'].createElement(
+	  _reactRouter.Router,
+	  { history: _reactRouter.hashHistory },
+	  _react2['default'].createElement(
+	    _reactRouter.Route,
+	    { component: _componentsAPP2['default'], path: "/" },
+	    _react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsAudience2['default'] })
+	  )
 	), document.getElementById('react-container'));
+	/*// <Route component={Login} path="/">*/ /*<Route component={Whoops404} />*/ /*// </Route>*/
 
 /***/ },
 /* 1 */
@@ -25798,7 +25802,11 @@
 
 	var _partsHeader = __webpack_require__(294);
 
+	var _partsHeader2 = _interopRequireDefault(_partsHeader);
+
 	var _partsRegister = __webpack_require__(295);
+
+	var _partsRegister2 = _interopRequireDefault(_partsRegister);
 
 	var APP = (function (_Component) {
 	    _inherits(APP, _Component);
@@ -25806,32 +25814,59 @@
 	    function APP() {
 	        _classCallCheck(this, APP);
 
-	        _get(Object.getPrototypeOf(APP.prototype), 'constructor', this).apply(this, arguments);
+	        _get(Object.getPrototypeOf(APP.prototype), 'constructor', this).call(this);
+	        this.state = {
+	            status: 'disconnected',
+	            title: 'CONNECT ME',
+	            member: {},
+	            audience: [],
+	            users: [],
+	            sound: ''
+	        };
+	        this.emit = this.emit.bind(this);
 	    }
 
 	    _createClass(APP, [{
-	        key: 'getInitialState',
-	        value: function getInitialState() {
-	            return {
-	                status: 'disconnected',
-	                title: 'CONNECT ME',
-	                member: {},
-	                audience: [],
-	                users: [],
-	                sound: ''
-	            };
-	        }
-	    }, {
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            this.socket = (0, _socketIoClient2['default'])('http://localhost:5000');
-	            this.socket.on('connect', this.connect);
-	            this.socket.on('disconnect', this.disconnect);
-	            this.socket.on('welcome', this.updateState);
-	            this.socket.on('joined', this.joined);
-	            this.socket.on('audience', this.updateAudience);
-	            this.socket.on('userAdded', this.updateUsers);
-	            this.socket.on('newSound', this.updateSound);
+	            var _this = this;
+
+	            this.socket = (0, _socketIoClient2['default'])('http://localhost:3000');
+
+	            this.socket.on('connect', function () {
+	                var member = sessionStorage.member ? JSON.parse(sessionStorage.member) : null;
+	                if (member && member.type === 'audience') {
+	                    _this.emit('join', member);
+	                }
+	                _this.setState({
+	                    status: 'connected',
+	                    title: 'CONNECT ME'
+	                });
+	            });
+
+	            this.socket.on('disconnect', function () {
+	                _this.setState({
+	                    status: 'disconnected',
+	                    title: 'disconnected'
+	                });
+	                _this.state.status === 'disconnected' ? (0, _alert2['default'])('glass') : null;
+	            });
+
+	            this.socket.on('joined', function (member) {
+	                sessionStorage.member = JSON.stringify(member);
+	                _this.setState({ audience: member });
+	            });
+
+	            this.socket.on('audience', function (newAudience) {
+	                _this.setState({ audience: newAudience });
+	            });
+
+	            this.socket.on('userAdded', function (newUser) {
+	                _this.setState({ users: newUser });
+	            });
+	            this.socket.on('newSound', function (addSound) {
+	                _this.setState({ sound: addSound });
+	            });
 	        }
 	    }, {
 	        key: 'emit',
@@ -25839,60 +25874,13 @@
 	            this.socket.emit(eventName, payload);
 	        }
 	    }, {
-	        key: 'connect',
-	        value: function connect() {
-	            var member = sessionStorage.member ? JSON.parse(sessionStorage.member) : null;
-	            if (member && member.type === 'audience') {
-	                this.emit('join', member);
-	            }
-	            this.setState({
-	                status: 'connected',
-	                title: 'CONNECT ME'
-	            });
-	        }
-	    }, {
-	        key: 'disconnect',
-	        value: function disconnect() {
-	            this.setState({
-	                status: 'disconnected',
-	                title: 'disconnected'
-	            });
-	            this.state.status === 'disconnected' ? (0, _alert2['default'])('glass') : null;
-	        }
-	    }, {
-	        key: 'joined',
-	        value: function joined(member) {
-	            sessionStorage.member = JSON.stringify(member);
-	            this.setState({ audience: member });
-	        }
-	    }, {
-	        key: 'updateState',
-	        value: function updateState(serverState) {
-	            this.setState(serverState);
-	        }
-	    }, {
-	        key: 'updateAudience',
-	        value: function updateAudience(newAudience) {
-	            this.setState({ audience: newAudience });
-	        }
-	    }, {
-	        key: 'updateUsers',
-	        value: function updateUsers(newUser) {
-	            this.setState({ users: newUser });
-	        }
-	    }, {
-	        key: 'updateSound',
-	        value: function updateSound(addSound) {
-	            this.setState({ sound: addSound });
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: "app-container" },
-	                _react2['default'].createElement(_partsRegister.Register, _extends({}, this.state, { emit: this.emit })),
-	                _react2['default'].createElement(_partsHeader.Header, _extends({}, this.state, { onClick: this.clickOutside })),
+	                _react2['default'].createElement(_partsRegister2['default'], _extends({}, this.state, { emit: this.emit })),
+	                _react2['default'].createElement(_partsHeader2['default'], _extends({}, this.state, { onClick: this.clickOutside })),
 	                _react2['default'].createElement(_reactRouter.RouterContext, _extends({ emit: this.emit }, this.state))
 	            );
 	        }
@@ -33753,11 +33741,19 @@
 
 	var _partsMessageform = __webpack_require__(298);
 
+	var _partsMessageform2 = _interopRequireDefault(_partsMessageform);
+
 	var _partsMessage = __webpack_require__(300);
+
+	var _partsMessage2 = _interopRequireDefault(_partsMessage);
 
 	var _partsUsers = __webpack_require__(302);
 
+	var _partsUsers2 = _interopRequireDefault(_partsUsers);
+
 	var _partsVoiceVoice = __webpack_require__(303);
+
+	var _partsVoiceVoice2 = _interopRequireDefault(_partsVoiceVoice);
 
 	var Audience = (function (_Component) {
 		_inherits(Audience, _Component);
@@ -33790,11 +33786,11 @@
 					_react2['default'].createElement(
 						'div',
 						{ className: "inline" },
-						_react2['default'].createElement(_partsUsers.Users, { users: this.props.users, status: this.props.status }),
-						_react2['default'].createElement(_partsVoiceVoice.Voice, { users: this.props.users, status: this.props.status })
+						_react2['default'].createElement(_partsUsers2['default'], { users: this.props.users, status: this.props.status }),
+						_react2['default'].createElement(_partsVoiceVoice2['default'], { users: this.props.users, status: this.props.status })
 					),
-					_react2['default'].createElement(_partsMessage.Message, { emit: this.props.emit, audience: this.props.audience, sound: this.props.sound }),
-					_react2['default'].createElement(_partsMessageform.Messageform, { emit: this.props.emit, user: this.props.users })
+					_react2['default'].createElement(_partsMessage2['default'], { emit: this.props.emit, audience: this.props.audience, sound: this.props.sound }),
+					_react2['default'].createElement(_partsMessageform2['default'], { emit: this.props.emit, user: this.props.users })
 				);
 			}
 		}]);
