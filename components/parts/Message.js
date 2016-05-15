@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Sounds } from './shortcodes/Sounds'
+import Sounds from './shortcodes/Sounds'
 
 export default class Message extends Component {
 	addMemberRow(member, i) {

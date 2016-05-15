@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 module.exports = function(socket) {
   //Socket function on user disconnect
   socket.once('disconnect', function() {

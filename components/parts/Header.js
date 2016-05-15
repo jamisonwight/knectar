@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
 
 export default class Header extends Component {
-	getDefaultProps() {
-		return {
-			status: 'disconnected',
-			title: 'CONNECT ME',
-		}
-	}
-
 	render() {
 		return (
 			<header className="row">

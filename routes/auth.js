@@ -4,7 +4,7 @@ var router = express.Router();
 
 // Google routes
 router.route('/google/callback')
-  .get(passport.authenticate('google', { successRedirect: '/users/', failureRedirect: '/error' }
+  .get(passport.authenticate('google', { successRedirect: '/users', failureRedirect: '/error' }
 ));
 router.route('/google')
   .get(passport.authenticate('google', {
@@ -17,17 +17,17 @@ router.route('/twitter')
   .get(passport.authenticate('twitter'));
 
 router.route('/twitter/callback')
-  .get(passport.authenticate('twitter', { successRedirect: '/users/', failureRedirect: '/error' }
+  .get(passport.authenticate('twitter', { successRedirect: '/users', failureRedirect: '/error' }
   ));
 
   // Facebook routes
-  router.route('/facebook')
-    .get(passport.authenticate('facebook', {
-        scope: ['email']
-    }));
+router.route('/facebook')
+  .get(passport.authenticate('facebook', {
+      scope: ['email']
+  }));
 
-  router.route('/facebook/callback')
-    .get(passport.authenticate('facebook', { successRedirect: '/users/', failureRedirect: '/error' }
-    ));
+router.route('/facebook/callback')
+  .get(passport.authenticate('facebook', { successRedirect: '/users', failureRedirect: '/error' }
+  ));
 
 module.exports = router;

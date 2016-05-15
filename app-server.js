@@ -14,31 +14,28 @@ var mongoose = require('mongoose');
 var app = express();
 
 
-var connections = [];
-var title = 'CONNECT ME';
-var audience = [];
-var users = [];
 
 // var ssl_options = {
 //   key: fs.readFileSync('./keys/key.pem'),
 //   cert: fs.readFileSync('./keys/cert.pem')
 // };
+
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist'));
 
-// app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 
-// app.use(session( {secret: 'anything',
-//                   resave: true,
-//                   saveUninitialized: true}) );
+app.use(session( {secret: 'anything',
+                  resave: true,
+                  saveUninitialized: true}) );
 
 
-// require('./config/passport')(app);
-// var db = mongoose.connect('mongodb://localhost/knectar');
+require('./config/passport')(app);
+var db = mongoose.connect('mongodb://localhost/knectar');
 
 // var users = require('./routes/user');
 // var auth = require('./routes/auth');
@@ -46,71 +43,7 @@ app.use(express.static('./node_modules/bootstrap/dist'));
 // app.use('/auth', auth);
 
 var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 server.listen(3000);
 
-// SOCKET IO
-var io = require('socket.io').listen(server);
-io.sockets.on('connection', function (socket) {
-console.log('shit');
-  //Socket function on user disconnect
-  socket.once('disconnect', function() {
-    var member = _.findWhere(users, { id: this.id });
-
-    if (member) {
-      users.splice(users.indexOf(member), 1);
-      io.sockets.emit('userAdded', users);
-      console.log("Left: %s ");
-    }
-    // Delete user on disconnect
-    connections.splice(connections.indexOf(socket), 1);
-    socket.disconnect();
-    console.log("Disconnected: %s sockets remaining.", connections.length);
-  });
-
-  // Socket function when a message is added
-    socket.on('addMessage', function(payload) {
-      var newMessage = {
-        id: this.id,
-        name: payload.name,
-        image: payload.image,
-        message: payload.message,
-        type: 'audience',
-        date: payload.date,
-        alert: payload.alert
-      }
-      console.log("Audience Joined: %s ", payload.name + " message: ", payload.message);
-      this.emit('joined', newMessage);
-      audience.push(newMessage);
-      io.sockets.emit('audience', audience);
-    });
-
-    // Socket to Grab username
-    socket.on('username', function(payload){
-      var newUser = {
-        name: payload.name,
-        image: payload.image
-      };
-
-      users.push(newUser);
-
-      // Emit new user to client App
-      io.sockets.emit('userAdded', users);
-      console.log(newUser);
-    });
-
-    // socket for message alerts
-    socket.on('fart', function(payload){
-      var newSound = { sound: payload.sound };
-      io.sockets.emit('newSound', newSound);
-    });
-
-	connections.push(socket);
-    console.log("Connected: %s sockets connected.", connections.length);
-
-	socket.emit('welcome', {
-		title: title,
-		audience: audience
-	})
-});
-
-console.log("Knectar server is running at http://localhost:3000");
+require('./sockets')(io);

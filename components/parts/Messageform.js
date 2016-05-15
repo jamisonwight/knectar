@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Emoji } from './Emoji'
+import Emoji from './Emoji'
 
 
 export default class Messageform extends Component {

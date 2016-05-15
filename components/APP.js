@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
-import { Router, RouterContext } from 'react-router'
+import { Router, RouteHandler } from 'react-router'
 import alert from 'alert'
 import io from 'socket.io-client'
 import Header from './parts/Header'
-import Register from './parts/Register'
-
 
 export default class APP extends Component {
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
             status: 'disconnected',
-            title: 'CONNECT ME',
+            title: 'Knectar',
             member: {},
             audience: [],
             users: [],
@@ -29,7 +27,7 @@ export default class APP extends Component {
           }
           this.setState({
               status: 'connected',
-              title: 'CONNECT ME'
+              title: 'Knectar'
           });
       });
 
@@ -61,11 +59,11 @@ export default class APP extends Component {
         this.socket.emit(eventName, payload)
     }
     render() {
+      const {children} = this.props;
         return (
             <div className="app-container">
-                <Register {...this.state} emit={this.emit} />
                 <Header {...this.state} onClick={this.clickOutside}/>
-                <RouterContext emit={this.emit} {...this.state} />
+                {children}
             </div>
         );
     }
