@@ -1,6 +1,6 @@
 var express = require('express');
+var app = express();
 var _ = require('underscore');
-
 var http = require('http');
 var https = require('https');
 var path = require('path');
@@ -11,35 +11,36 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
-var app = express();
 
 var audience = [];
 var users = [];
 var title = 'CONNECT ME';
 var connections = [];
 
+app.use(express.static('./public'));
+app.use(express.static('./node_modules/bootstrap/dist'));
 
-// app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cookieParser());
-// app.use(express.static('./public'));
-// app.use(express.static('./node_modules/bootstrap/dist'));
-//
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 // app.use(session( {secret: 'anything',
 //                   resave: true,
 //                   saveUninitialized: true}) );
-//
+
 // require('./config/passport')(app);
 // // var db = mongoose.connect('mongodb://localhost/knectar');
-//
+
 // // var users = require('./routes/user');
 // // var auth = require('./routes/auth');
 // // app.use('/users', users);
 // // app.use('/auth', auth);
 
-var server = app.listen('3000');
+var server = http.createServer(app);
 var io = require('socket.io').listen(server);
+
+server.listen('3000');
 
 // SOCKET IO
 io.sockets.on('connection', function (socket) {
@@ -102,5 +103,3 @@ socket.once('disconnect', function() {
   connections.push(socket);
     console.log("Connected: %s sockets connected.", connections.length);
 });
-
-module.exports = app;

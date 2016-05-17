@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 import { Route, Router, hashHistory, IndexRoute } from 'react-router'
 import Login from './components/Login'
 import APP from './components/APP'
@@ -8,9 +8,9 @@ import User from './routes/user'
 import Auth from './routes/auth'
 import Whoops404 from './components/Whoops404'
 
-ReactDOM.render( (
+render((
 	<Router history={hashHistory}>
- 	  {/*<Route component={Login} path="/" />*/}
+ 	  <Route component={Login} path="/" />
  		<Route component={APP} path="/app">
  			<IndexRoute component={Audience} />
  		</Route>
