@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
 	entry: "./app-client.js",
 	output: {
@@ -6,9 +8,12 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				exclude: /(node_modules|app-server.js)/,
-				loader: 'babel',
-
+			test: /\.jsx?$/,
+			exclude: /(node_modules|bower_components)/,
+			loader: 'babel', // 'babel-loader' is also a legal name to reference
+			query: {
+				presets: ['es2015']
+			}
 			}
 		]
 	}

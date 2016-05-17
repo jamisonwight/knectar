@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { Route, Router, hashHistory, IndexRoute } from 'react-router'
 import Login from './components/Login'
@@ -10,12 +10,10 @@ import Whoops404 from './components/Whoops404'
 
 ReactDOM.render( (
 	<Router history={hashHistory}>
- 	  <Route component={Login} path="/" />
+ 	  {/*<Route component={Login} path="/" />*/}
  		<Route component={APP} path="/app">
  			<IndexRoute component={Audience} />
  		</Route>
-		<Route component={User} path="/user" />
-		<Route component={Auth} path="/auth" />
  		{/*<Route component={Whoops404} />*/}
  	</Router>
 ), document.getElementById('react-container') )
